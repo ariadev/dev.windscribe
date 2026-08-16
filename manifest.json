@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "dev.windscribe",
+  "name": "Windscribe",
+  "version": "1.0.0",
+  "author": "ariadev",
+  "license": "MIT",
+  "description": "Windscribe VPN state in the Omarchy bar: connection status at a glance, plus a panel to connect, disconnect, toggle the firewall, and pick from every available location.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "activation": "on-demand",
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Windscribe",
+    "description": "One bar icon reflecting Windscribe's connection state, and one panel: current location, protocol, tunnel IP, live throughput and data usage, connect/disconnect, firewall toggle, and a searchable list of favourite, static and regional locations.",
+    "category": "Network",
+    "aliases": [
+      "windscribe",
+      "vpn"
+    ],
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "pollIntervalSec": 10,
+      "showLabel": true,
+      "hideWhenDisconnected": false,
+      "showPublicIp": false
+    },
+    "schema": [
+      {
+        "key": "pollIntervalSec",
+        "type": "integer",
+        "label": "Status poll interval (seconds)",
+        "description": "How often to run `windscribe-cli status` while idle. Transitions always poll every 2 seconds regardless.",
+        "min": 2,
+        "max": 120,
+        "step": 1,
+        "defaultValue": 10
+      },
+      {
+        "key": "showLabel",
+        "type": "boolean",
+        "label": "Show location next to the icon",
+        "description": "Draw the connected city in the bar alongside the icon.",
+        "defaultValue": true
+      },
+      {
+        "key": "hideWhenDisconnected",
+        "type": "boolean",
+        "label": "Hide the icon when disconnected",
+        "description": "Collapse the bar slot entirely unless Windscribe is connected or connecting.",
+        "defaultValue": false
+      },
+      {
+        "key": "showPublicIp",
+        "type": "boolean",
+        "label": "Look up public IP",
+        "description": "Fetch the egress IP from an external service once per connection change. Off by default: it is the only thing this widget does that leaves your machine.",
+        "defaultValue": false
+      }
+    ]
+  }
+}
