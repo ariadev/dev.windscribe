@@ -114,6 +114,12 @@ Item {
     return value === true
   }
 
+  // Optional `protocol[:port]` argument for `connect`. Left empty, the CLI
+  // picks its own default (WireGuard:443), which silently never completes on
+  // networks that block it — a stuck "Connecting" with nothing in the output
+  // to explain it. Set e.g. "tcp:80" to pin a protocol that works.
+  readonly property string connectProtocol: String(setting("protocol", "")).trim()
+
   readonly property bool showPublicIp: boolSetting("showPublicIp", false)
 
   // ------------------------------------------------------------------ polls
@@ -439,6 +445,7 @@ Item {
   function connectTo(target) {
     var command = ["windscribe-cli", "connect", "-n"]
     if (target !== undefined && target !== null && String(target) !== "") command.push(String(target))
+    if (root.connectProtocol !== "") command.push(root.connectProtocol)
     root.runAction(command, "connected")
   }
 
@@ -609,7 +616,9 @@ Item {
     if (!entry || entry.disabled) return
     if (entry.isStatic === true) {
       var name = entry.city !== "" ? entry.city : entry.target
-      root.runAction(["windscribe-cli", "connect", "-n", "static", name], "connected")
+      var command = ["windscribe-cli", "connect", "-n", "static", name]
+      if (root.connectProtocol !== "") command.push(root.connectProtocol)
+      root.runAction(command, "connected")
       return
     }
     root.connectTo(entry.target)

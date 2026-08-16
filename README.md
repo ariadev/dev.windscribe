@@ -53,6 +53,16 @@ Set from the Omarchy setup UI, or with `omarchy bar set dev.windscribe <key> <va
 | `showLabel`            | `true`  | Draw the connected city next to the icon.                           |
 | `hideWhenDisconnected` | `false` | Collapse the bar slot unless connected, connecting, or in trouble.  |
 | `showPublicIp`         | `false` | Look up the egress IP once per connection change.                   |
+| `protocol`             | `""`    | `protocol[:port]` passed to every connect, e.g. `tcp:80`.           |
+
+Leave `protocol` empty and the CLI picks its own default, WireGuard:443. Some
+networks drop that quietly: the connect never fails, it just sits at
+"Connecting" forever. If `windscribe-cli connect <place> tcp:80` works in a
+terminal where the widget stalls, pin the same protocol here:
+
+```bash
+omarchy bar set dev.windscribe protocol tcp:80
+```
 
 `showPublicIp` is off by default because it is the only thing this widget does
 that leaves your machine: it fetches your address from `api.ipify.org`. Every

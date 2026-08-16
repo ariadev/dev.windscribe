@@ -27,7 +27,8 @@
       "pollIntervalSec": 10,
       "showLabel": true,
       "hideWhenDisconnected": false,
-      "showPublicIp": false
+      "showPublicIp": false,
+      "protocol": ""
     },
     "schema": [
       {
@@ -60,6 +61,13 @@
         "label": "Look up public IP",
         "description": "Fetch the egress IP from an external service once per connection change. Off by default: it is the only thing this widget does that leaves your machine.",
         "defaultValue": false
+      },
+      {
+        "key": "protocol",
+        "type": "string",
+        "label": "Connection protocol",
+        "description": "Optional `protocol[:port]` appended to every connect, e.g. `tcp:80`. Empty means the CLI's own default, WireGuard:443, which some networks drop silently — leaving the widget stuck at \"Connecting\".",
+        "defaultValue": ""
       }
     ]
   }
