@@ -644,13 +644,15 @@ Item {
   }
 
   // Data usage compressed to fit on the meta line: "2.70 GB" / "Unlimited"
-  // becomes "2.7GB/Unlimited". parseFloat drops the trailing zeros the CLI
-  // pads its figures with.
+  // becomes "2.7GB/∞". parseFloat drops the trailing zeros the CLI pads its
+  // figures with, and an unmetered plan is a symbol rather than a word — the
+  // line it sits on is already carrying four facts.
   readonly property string dataSummary: {
     if (root.dataUsed === "") return ""
     var match = root.dataUsed.match(/^([\d.]+)\s*(\S+)$/)
     var used = match ? String(parseFloat(match[1])) + match[2] : root.dataUsed.replace(/\s+/g, "")
     var limit = root.dataLimit.replace(/\s+/g, "")
+    if (limit.toLowerCase() === "unlimited") limit = "∞"
     return limit !== "" ? used + "/" + limit : used
   }
 
