@@ -33,7 +33,7 @@ credentials; signing in stays a terminal job.
 ## Install
 
 ```bash
-omarchy plugin add https://github.com/ariadev/omarchy-windscribe.git --enable --yes
+omarchy plugin add https://github.com/ariadev/dev.windscribe --enable --yes
 omarchy bar put dev.windscribe --after omarchy.network
 ```
 
