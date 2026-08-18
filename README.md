@@ -5,6 +5,8 @@ A native [Omarchy](https://omarchy.org) shell bar widget for
 and a panel to connect, disconnect, guard the firewall, and pick from every
 location the CLI knows about.
 
+![The dev.windscribe bar widget and its panel: connection detail, firewall toggle, and the location list](preview.png)
+
 ## Features
 
 - **State in the bar** — one icon, tinted by connection state, with the
